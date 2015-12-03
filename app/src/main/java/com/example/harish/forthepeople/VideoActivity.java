@@ -1,5 +1,7 @@
 package com.example.harish.forthepeople;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +13,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.net.Uri;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 public class VideoActivity extends AppCompatActivity {
@@ -35,6 +41,70 @@ public class VideoActivity extends AppCompatActivity {
                 vidView.start();
             }
         });
+        vidView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                //start Previous Activity here
+
+                finish();
+            }
+        });
+
+        ImageView ib1=(ImageView)findViewById(R.id.imageView);
+        View.OnClickListener ibLis1=new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //START YOUR ACTIVITY HERE AS
+                Toast.makeText(getApplicationContext(), "Happy !! "+vidView.getCurrentPosition()/1000.0+"s",
+                        Toast.LENGTH_LONG).show();
+            }
+        };
+        ImageView ib2=(ImageView)findViewById(R.id.imageView2);
+        View.OnClickListener ibLis2=new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //START YOUR ACTIVITY HERE AS
+                Toast.makeText(getApplicationContext(), "Fear !! "+vidView.getCurrentPosition()/1000.0+"s",
+                        Toast.LENGTH_LONG).show();
+            }
+        };
+        ImageView ib3=(ImageView)findViewById(R.id.imageView3);
+        View.OnClickListener ibLis3=new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //START YOUR ACTIVITY HERE AS
+                Toast.makeText(getApplicationContext(), "Sad !! "+vidView.getCurrentPosition()/1000.0+"s",
+                        Toast.LENGTH_LONG).show();
+            }
+        };
+        ImageView ib4=(ImageView)findViewById(R.id.imageView4);
+        View.OnClickListener ibLis4=new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //START YOUR ACTIVITY HERE AS
+                Toast.makeText(getApplicationContext(), "Disgust !! "+vidView.getCurrentPosition()/1000.0+"s",
+                        Toast.LENGTH_LONG).show();
+            }
+        };
+        ImageView ib5=(ImageView)findViewById(R.id.imageView5);
+        View.OnClickListener ibLis5=new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                //START YOUR ACTIVITY HERE AS
+                Toast.makeText(getApplicationContext(), "Anger !! "+vidView.getCurrentPosition()/1000.0+"s",
+                        Toast.LENGTH_LONG).show();
+            }
+        };
+        ib1.setOnClickListener(ibLis1);
+        ib2.setOnClickListener(ibLis2);
+        ib3.setOnClickListener(ibLis3);
+        ib4.setOnClickListener(ibLis4);
+        ib5.setOnClickListener(ibLis5);
 
     }
 
