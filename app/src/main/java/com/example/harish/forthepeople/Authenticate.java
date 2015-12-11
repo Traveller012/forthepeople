@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,9 +68,29 @@ public class Authenticate extends Activity {
             public void onClick(View arg0) {
 
                 showProgress(true);
-                final String url = "http://javatechig.com/api/get_category_posts/?dev=1&slug=android";
 
-                new AsyncHttpTask().execute(url);
+                new CountDownTimer(2000, 1000) {
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        // do something after 1s
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        // do something end times 5s
+                        showProgress(false);
+
+                        Intent myIntent = new Intent(Authenticate.this, ListDebates.class);
+                        myIntent.putExtra("userID", 1); //Optional parameters
+                        Authenticate.this.startActivity(myIntent);
+                    }
+
+                }.start();
+
+                //final String url = "http://javatechig.com/api/get_category_posts/?dev=1&slug=android";
+
+                //new AsyncHttpTask().execute(url);
             }
         });
 
@@ -175,7 +199,7 @@ public class Authenticate extends Activity {
                 Log.d("debug", blogTitles.toString());
                 //arrayAdapter = new ArrayAdapter(Authenticate.this, android.R.layout.simple_list_item_1, blogTitles);
                 Intent myIntent = new Intent(Authenticate.this, ListDebates.class);
-                myIntent.putExtra("username", username.getText()); //Optional parameters
+                myIntent.putExtra("userID", 1); //Optional parameters
                 Authenticate.this.startActivity(myIntent);
                 //listView.setAdapter(arrayAdapter);
             }else{

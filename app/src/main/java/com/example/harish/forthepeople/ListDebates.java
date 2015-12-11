@@ -12,26 +12,35 @@ import android.widget.Toast;
 
 public class ListDebates extends AppCompatActivity {
 
+    int userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_debates);
         ListView mlistView = (ListView) findViewById(R.id.listDebates);
+
+        userID = getIntent().getIntExtra("userID",-1);
+
+
         mlistView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
-                new String[] {"GOP Debate", "Republican Debate", "Democratic Debate"}));
+                new String[] {"Watch Debate", "Play Vote Tinder"}));
         mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // When clicked, show a toast with the TextView text Game, Help, Home
-                Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-                        Toast.LENGTH_SHORT);//.show();
+
                 String sText = ((TextView) view).getText().toString();
                 Intent intent = null;
-                if (sText.equals("GOP Debate"))
+                if (sText.equals("Watch Debate")) {
                     intent = new Intent(getBaseContext(),
                             VideoActivity.class);
-                //else if(sText.equals("Help")) ..........
+                    intent.putExtra("userID",userID);
+                }
+                else if(sText.equals("Play Vote Tinder")) {
+                    intent = new Intent(getBaseContext(),
+                            VoteTinder.class);
+                    intent.putExtra("userID",userID);
+                }
 
                 if (intent != null)
                     startActivity(intent);
